@@ -2,6 +2,7 @@
 
 The aim of this repository is to apply a consistent look on your computer, based on the famous [Dracula theme](https://draculatheme.com/).
 
+![Dracula Theme](https://github.com/matteolecuit/dotfile-dracula/blob/master/Images/1.png)
 This dotfiles provides config for :
 
 * I3-gaps
@@ -65,3 +66,9 @@ Modified version of [Dracula-Typora](https://github.com/oguhpereira/Dracula-Typo
 ### Background:
 
 Made from modified icons designed by [**Freepik** ](http://www.freepik.com)from **www.flaticon.com**.
+
+## More pictures
+
+![Dracula Theme](https://github.com/matteolecuit/dotfile-dracula/blob/master/Images/2.png)
+![Dracula Theme](https://github.com/matteolecuit/dotfile-dracula/blob/master/Images/3.png)
+![Dracula Theme](https://github.com/matteolecuit/dotfile-dracula/blob/master/Images/4.png)
