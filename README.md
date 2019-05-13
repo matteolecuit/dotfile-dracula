@@ -2,8 +2,6 @@
 
 The aim of this repository is to apply a consistent look on your computer, based on the famous [Dracula theme](https://draculatheme.com/).
 
-## Content
-
 This dotfiles provides config for :
 
 * I3-gaps
@@ -33,7 +31,7 @@ Link dracula.tdesktop-theme in a chat, click on it and accept.
 
 ## External config
 
-### GTK Theme :
+### GTK Theme:
 
 [Modified Ant Dracula](https://gitlab.com/samuelts/Dracula_Purple/tree/master/Ant-Dracula-Purple)
 
@@ -45,6 +43,25 @@ Link dracula.tdesktop-theme in a chat, click on it and accept.
 papirus-folders -C violet --theme Papirus-Dark
 ```
 
-### Background
+### VS-Code:
+
+[Dracula Theme](https://draculatheme.com/visual-studio-code/) for VS-Code.
+
+### DuckDuckGo:
+
+Go to https://duckduckgo.com/settings, and in theme, use :
+
+* Background Color = #282a36
+* Header Color = #282a36
+* Result Title Color = #bd93f9
+* Result Visited Title Color = #ff79c6
+* Result Description = #8be9fd
+* Result URL Color = # 50fa7b
+
+### Typora:
+
+Modified version of [Dracula-Typora](https://github.com/oguhpereira/Dracula-Typora) .
+
+### Background:
 
 Made from modified icons designed by [**Freepik** ](http://www.freepik.com)from **www.flaticon.com**.
