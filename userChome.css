@@ -1,0 +1,435 @@
+/* This is my current configuration*/
+
+/* Creates placeholders for window controls */
+/* This is a supporting file used by other stylesheets */
+
+/* This file should preferably be imported before other stylesheets */
+
+/* Defaults for window controls on RIGHT side of the window */
+/* Modify these values to match your preferences */
+:root {
+	--uc-window-control-width: 138px; /* Space reserved for window controls */
+	--uc-window-drag-space-width: 24px; /* Extra space reserved on both sides of the nav-bar to be able to drag the window */
+}
+
+#nav-bar::before,
+#nav-bar::after {
+	content: "";
+	display: -moz-box;
+	width: var(--uc-window-drag-space-width);
+}
+toolbar#nav-bar::after {
+	width: calc(var(--uc-window-control-width) + var(--uc-window-drag-space-width, 0px));
+}
+
+/* Use this pref to check Mac OS where window controls are on left */
+/* This pref defaults to true on Mac and doesn't actually do anything on other platforms. So if your system has window controls on LEFT side you can set the pref to true */
+@supports -moz-bool-pref("layout.css.osx-font-smoothing.enabled") {
+	:root {
+		--uc-window-control-width: 72px;
+	}
+	:root[tabsintitlebar="true"]:not([inFullscreen]) #nav-bar::before {
+		width: calc(var(--uc-window-control-width) + var(--uc-window-drag-space-width, 0px));
+	}
+	:root[tabsintitlebar="true"]:not([inFullscreen]) toolbar#nav-bar::after {
+		width: var(--uc-window-drag-space-width);
+	}
+}
+
+/*Make tabs and navbar appear side-by-side tabs on right */
+
+/* IMPORTANT */
+/*
+Get window_control_placeholder_support.css
+Window controls will be all wrong without it
+*/
+
+/* Modify these to change relative widths or default height */
+#navigator-toolbox {
+	--uc-navigationbar-width: 50vw;
+	--uc-toolbar-height: 40px;
+}
+/* Override for other densities */
+:root[uidensity="compact"] > #navigator-toolbox {
+	--uc-toolbar-height: 32px;
+}
+:root[uidensity="touch"] > #navigator-toolbox {
+	--uc-toolbar-height: 40px;
+}
+
+/* prevent urlbar overflow on narrow windows */
+/* Dependent on how many items are in navigation toolbar ADJUST AS NEEDED */
+@media screen and (max-width: 960px) {
+	#urlbar-container {
+		min-width: unset !important;
+	}
+}
+
+#TabsToolbar {
+	margin-left: var(--uc-navigationbar-width);
+}
+#tabbrowser-tabs {
+	--tab-min-height: var(--uc-toolbar-height) !important;
+}
+/* This isn't useful when tabs start in the middle of the window */
+.titlebar-placeholder[type="pre-tabs"],
+.titlebar-spacer[type="pre-tabs"] {
+	display: none;
+}
+#navigator-toolbox > #nav-bar {
+	margin-right: calc(100vw - var(--uc-navigationbar-width));
+	margin-top: calc(0px - var(--uc-toolbar-height));
+}
+
+/* Override style set in window_control_placeholder_support.css  */
+#nav-bar::after {
+	display: none !important;
+}
+
+/* Rules specific to window controls on right layout */
+@supports -moz-bool-pref("layout.css.osx-font-smoothing.enabled") {
+	.titlebar-buttonbox-container {
+		position: fixed;
+		left: 0px;
+		z-index: 3;
+	}
+}
+
+/* 1px margin on touch density causes tabs to be too high */
+.tab-close-button {
+	margin-top: 0 !important;
+}
+
+/* Hide dropdown placeholder */
+#urlbar-container:not(:hover) .urlbar-history-dropmarker {
+	margin-inline-start: -28px;
+}
+
+/** "Light" Theme (Dark Text) **/
+
+
+/* Remove short vertical lines between background tabs */
+#main-window:not([lwthemetextcolor="bright"]) .tabbrowser-tab::before,
+#main-window:not([lwthemetextcolor="bright"]) .tabbrowser-tab::after {
+	border: none !important;
+}
+
+/*
+ * Style your tabs similar to Googles "Material Design" guidelines.
+ *
+ * This includes a transparent background and a white line at the bottom
+ * instead of a blue line at the top.
+ *
+ * Contributor(s): Madis0
+ */
+
+.tabbrowser-tab[visuallyselected="true"] {
+	color: inherit !important; /* Use background tab text color for foreground tabs */
+}
+
+.tab-background[selected="true"] {
+	background-color: transparent !important; /* Make selected tab bg transparent */
+}
+
+.tab-line {
+	-moz-box-ordinal-group: 2; /* Move the line to the bottom */
+}
+
+.tab-line[selected="true"] {
+	background-color: transparent !important; /* Make the line white, remove this for default color */
+}
+
+/* Contextual toolbar buttons, only show on hover, this is what matters, the rest of the file are just style tweaks I like
+ */
+
+:root:not([customizing]) #nav-bar toolbarbutton {
+	margin-left: -28px !important;
+	opacity: 0 !important;
+	transform: scale(0.85, 0.85) !important;
+	pointer-events: none !important;
+	transition: all 100ms var(--animation-easing-function) !important;
+}
+
+:root:not([customizing]) :hover > #nav-bar toolbarbutton,
+:root:not([customizing]) #navigator-toolbox:focus-within #nav-bar toolbarbutton,
+:root:not([customizing]) :hover > #titlebar toolbarbutton {
+	transform: scale(1, 1) !important;
+	opacity: 1 !important;
+	margin-left: 0 !important;
+	pointer-events: auto !important;
+}
+
+/* url bar text shrinks when in "stealth mode" */
+#nav-bar #urlbar {
+	font-size: 0.75em !important;
+	transition: all 100ms var(--animation-easing-function) !important;
+}
+
+:root:not([customizing]) :hover > #nav-bar #urlbar,
+:root:not([customizing]) #navigator-toolbox:focus-within #nav-bar #urlbar {
+	font-size: 1em !important;
+}
+
+/* nav bar is semi opaque when unhovered */
+#nav-bar > * {
+	opacity: 0.5;
+	transition: opacity 0.3s;
+}
+
+#nav-bar:hover > * {
+	opacity: 1 !important;
+}
+
+#urlbar {
+	opacity: 1 !important;
+}
+
+#urlbar .urlbar-input-box {
+	opacity: 1 !important;
+}
+
+#urlbar,
+.searchbar-textbox {
+	border: 0px !important;
+	height: 20px !important;
+}
+
+#urlbar {
+	margin-left: 1px !important;
+	margin-right: 1px !important;
+}
+
+.tab-background {
+	border-top: none !important;
+}
+
+.tabs-newtab-button,
+#new-tab-button,
+#alltabs-button {
+	color: rgba(240, 240, 240, 1);
+	border-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+
+window:not([chromehidden~="toolbar"])
+	#urlbar-container
+	> .toolbarbutton-1:-moz-any([disabled], :not([open]):not([disabled]):not(:active))
+	> .toolbarbutton-icon[class],
+#main-window:not([customizing]) #back-button[disabled] > .toolbarbutton-icon[class] {
+	box-shadow: none !important;
+	border: 0px !important;
+}
+
+.titlebar-placeholder[type="post-tabs"] {
+	width: 50px !important;
+}
+
+#TabsToolbar {
+	margin-bottom: 0px !important;
+}
+#navigator-toolbox::after {
+	border-bottom: 0px !important;
+}
+
+#TabsToolbar .tab-background {
+	border-right: 0px !important;
+	border-left: 0px !important;
+}
+.scrollbutton-up,
+.scrollbutton-down {
+	margin-bottom: 0px !important;
+}
+.scrollbutton-up:hover,
+.scrollbutton-down:hover {
+	background: rgba(40, 42, 54, 1);
+}
+.scrollbutton-up:hover:active,
+.scrollbutton-down:hover:active {
+	background: #44475a;
+}
+.tabs-newtab-button .toolbarbutton-icon {
+	background: transparent;
+}
+#urlbar,
+.searchbar-textbox {
+	box-shadow: none !important;
+}
+.close-icon > .toolbarbutton-icon {
+	border-radius: 0px !important;
+}
+#TabsToolbar[movingtab] {
+	padding-bottom: 0px !important;
+}
+#TabsToolbar[movingtab] > .tabbrowser-tabs {
+	padding-bottom: 0px !important;
+	margin-bottom: 0px !important;
+}
+#new-tab-button > .toolbarbutton-icon,
+#alltabs-button > .toolbarbutton-icon {
+	background-color: transparent;
+}
+:root {
+	--toolbarbutton-border-radius: 0px !important;
+}
+
+#context-back > .menu-iconic-left,
+#context-forward > .menu-iconic-left,
+#context-reload > .menu-iconic-left,
+#context-stop > .menu-iconic-left,
+#context-bookmarkpage > .menu-iconic-left {
+	padding: 0px !important;
+}
+
+#tabbrowser-tabs {
+	--tab-line-color: -moz-win-accentcolor !important;
+	--tab-loading-fill: -moz-win-accentcolor !important;
+	box-shadow: none !important;
+}
+#tabbrowser-tabs:-moz-window-inactive {
+	--tab-line-color: rgb(248, 248, 242) !important;
+}
+
+.webextension-browser-action {
+	filter: saturate(0%);
+}
+
+:root[lwtheme-image]:-moz-lwtheme-brighttext {
+	text-shadow: none !important;
+}
+
+/*
+ * Only show close buttons on background tabs when hovering with the mouse
+ *
+ * Contributor(s): Timvde
+ */
+
+.tabbrowser-tab:not([selected]):not([pinned]) .tab-close-button {
+	display: none !important;
+}
+
+.tabbrowser-tab:not([selected]):not([pinned]):hover .tab-close-button {
+	display: -moz-box !important;
+}
+
+/*
+ * Underlines and dims unloaded tabs
+ *
+ * Contributor(s): josemam
+ */
+
+.tabbrowser-tab[pending] {
+	font-style: italic;
+}
+
+:root:not([customizing]) #navigator-toolbox:focus-within #nav-bar {
+	max-height: 32px;
+	height: 32px;
+}
+
+:root:not([customizing]) .tabbrowser-tab:not([pinned="true"]) {
+	--tab-min-width: fit-content;
+	-moz-box-flex: 0 !important;
+	max-width: 70px;
+}
+
+:root:not([customizing]) .tabbrowser-tab:not([pinned="true"]) .tab-stack {
+	flex-basis: 1;
+}
+
+:root:not([customizing]) .tab-content {
+	padding: 0 6px;
+}
+
+:root:not([customizing]) .tab-line,
+:root:not([customizing]) .tab-text {
+	display: none;
+}
+
+:root:not([customizing]) .tab-icon-image {
+	margin: 0 !important;
+}
+
+/* Always show tab close button on hover and never otherwise */
+.tabbrowser-tab .tab-close-button {
+	display: none;
+}
+.tabbrowser-tab:not([pinned]):hover .tab-close-button {
+	display: -moz-box !important;
+}
+
+#TabsToolbar {
+	background: #282a36 !important;
+
+	color: #f8f8f2 !important;
+
+	font-weight: normal !important;
+
+	border: none !important;
+
+	border-radius: 2px 0 0 0 !important;
+}
+
+.tab-line {
+	color: transparent !important;
+
+	background: transparent !important;
+}
+
+.tabbrowser-tab {
+	background: #282a36 !important;
+
+	color: #f8f8f2 !important;
+}
+
+.tab-background[selected="true"] {
+	background-color: #282a36 !important;
+}
+
+.tabs-newtab-button {
+	background: #282a36 !important;
+
+	box-shadow: inset 0px 0px 0px rgba(40, 42, 54, 0.5) !important;
+}
+
+.tabs-newtab-button:hover {
+	background-image: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(40, 42, 54, 0.05) 95%),
+		-moz-linear-gradient(rgba(40, 42, 54, 0), rgba(40, 42, 54, 0.5) 95%) !important;
+}
+
+.tabbrowser-tab[pinned],
+.tabbrowser-tab[pinned]:not([selected]) {
+	margin-top: 2px !important;
+
+	margin-bottom: 1px !important;
+
+	margin-right: 0px !important;
+
+	background: #282a36 !important;
+}
+
+#browser-bottombox,
+#status-bar,
+#status-bar > *,
+#nav-bar,
+#PersonalToolbar,
+#addon-bar,
+#main-window[tabsontop="false"] #TabsToolbar:nth-last-child(1n + 2),
+#main-window[tabsontop="false"] #PersonalToolbar[collapsed="false"] + #TabsToolbar,
+#main-window[tabsontop="false"] [id^="__customToolbar"]:not([collapsed="true"]) ~ #TabsToolbar {
+	background: #282a36 !important;
+
+	color: #f8f8f2 !important;
+}
+
+.chromeclass-directories *,
+#bookmarksPanel * {
+	color: #f8f8f2 !important;
+}
+
+#urlbar {
+	background: #282a36 !important;
+
+	color: #f8f8f2 !important;
+
+	font-weight: normal !important;
+}
