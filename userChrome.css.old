@@ -1,3 +1,4 @@
+/* This is my previous configuration */
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 .tab-content[selected="true"] {
     background-color:#282a36 !important;
